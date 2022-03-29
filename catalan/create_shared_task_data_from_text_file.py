@@ -50,8 +50,8 @@ def dev_test_train(text_file: str, outpath: str):
         train_lines, dev_lines = train_test_split(train_lines, test_size=.2, random_state=RAND_SEED)
 
         to_tsv(train_lines, "ca/train/train.tsv")
-        to_tsv(dev_lines, "ca/train/dev.tsv")
-        to_tsv(test_lines, "ca/train/test.tsv")
+        to_tsv(dev_lines, "ca/dev/dev.tsv")
+        to_tsv(test_lines, "ca/test/test.tsv")
 
 if __name__ == '__main__':
     dev_test_train('catalan.txt',  outpath='data/sepp_nlg_2021_data/')

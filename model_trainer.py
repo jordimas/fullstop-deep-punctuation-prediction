@@ -104,8 +104,11 @@ class ModelTrainer():
         train_data = []
 
         for language in self.languages:
-            val_data += load("data/sepp_nlg_2021_train_dev_data_v5.zip","dev",language,subtask=self.task)
-            train_data += load("data/sepp_nlg_2021_train_dev_data_v5.zip","train",language,subtask=self.task)
+            val_data += load("catalan/data-ca.zip","dev",language,subtask=self.task)
+            train_data += load("catalan/data-ca.zip","train",language,subtask=self.task)
+
+            #val_data += load("data/sepp_nlg_2021_train_dev_data_v5.zip","dev",language,subtask=self.task)
+            #train_data += load("data/sepp_nlg_2021_train_dev_data_v5.zip","train",language,subtask=self.task)
 
         #todo: implement augmentaion        
         aug_data =[]# load("data/bundestag_aug.zip","aug","de",subtask=task)

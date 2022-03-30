@@ -2,7 +2,7 @@
     {
         "id":16,
         "task":2,
-        "model":"roberta-large",
+        "model": "BSC-TeMU/roberta-base-ca",
         "languages":["ca"],
         "augmentation":[""],
         "data_percentage":1,
@@ -16,7 +16,7 @@
         {
             "id":22,
             "task":2,
-            "model":"roberta-large",
+            "model": "BSC-TeMU/roberta-base-ca",
             "languages":["ca"],
             "augmentation":[""],
             "data_percentage":1,

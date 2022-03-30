@@ -4,7 +4,8 @@ import re
 import torch
 
 class PunctuationModel():
-    def __init__(self, model = "oliverguhr/fullstop-punctuation-multilang-large") -> None:        
+    def __init__(self, model = "oliverguhr/fullstop-punctuation-multilang-large") -> None:
+        model = "model/"
         if torch.cuda.is_available():
             self.pipe = pipeline("ner",model, grouped_entities=False, device=0)
         else:
@@ -12,7 +13,7 @@ class PunctuationModel():
 
     def preprocess(self,text):
         #remove markers except for markers in numbers 
-        text = re.sub(r"(?<!\d)[,](?!\d)","",text) 
+#        text = re.sub(r"(?<!\d)[,](?!\d)","",text) 
         #todo: match acronyms https://stackoverflow.com/questions/35076016/regex-to-match-acronyms
         text = text.split()
         return text
@@ -68,11 +69,12 @@ class PunctuationModel():
         result = ""
         for word, label, _ in prediction:
             result += word
-            if label == "0":
-                result += " "
+#            if label == "0":
             if label in ",":
 #            if label in ".,?-:":
                 result += label+" "
+            else:
+                result += " "
         return result.strip()
 
 if __name__ == "__main__":    

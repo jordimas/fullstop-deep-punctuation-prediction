@@ -9,7 +9,7 @@ if __name__ == "__main__":
 
     start_time = datetime.datetime.now()
 
-    with open('flores101_eng_small.txt', 'r') as source_fp, open ('output.txt', 'r') as target_fp:
+    with open('flores101_cat_small.txt', 'r') as source_fp, open ('output.txt', 'r') as target_fp:
         sources = source_fp.readlines()
         targets = target_fp.readlines()
 

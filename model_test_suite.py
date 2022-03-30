@@ -36,9 +36,11 @@ if __name__ == "__main__":
             result = trainer.run_training()
             run_config["result"] = result    
             completed_runs["tests"][run_config["id"]] = run_config
-        except:
-            print("Unexpected error:", sys.exc_info()[0])         
-        
+        except Exception as ex:
+            import traceback
+            print("Unexpected error:", sys.exc_info()[0])
+            print(f"Exception: {ex}")
+            traceback.print_exc()
 
         # write results
         with open(f'model_final_suite_results_task{task}.json', 'w') as outfile:

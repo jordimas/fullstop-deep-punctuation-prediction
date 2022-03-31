@@ -30,7 +30,9 @@ class ModelTrainer():
         else:
             self.label_2_id = {"0":0, ".":1, ",":2, "?":3, "-":4, ":":5} 
             
-        self.id_2_label = list(self.label_2_id.keys())        
+        self.id_2_label = list(self.label_2_id.keys())
+
+        print(f"ModelTrainer.__init__: {opimizer_config}"
     
     def tokenize_and_align_data(self,data,stride=0):
         if self.model_checkpoint == "camembert/camembert-large":
@@ -163,6 +165,8 @@ class ModelTrainer():
             fp16=True   
         )
 
+        print(f"ModelTrainer.run_training: atgs: {args}"
+    
         data_collator = DataCollatorForTokenClassification(self.tokenizer)
 
         def model_init():

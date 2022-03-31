@@ -6,9 +6,6 @@ import datetime
 import logging
 from punctuationmodel import PunctuationModel
 
-#text = "My name is Clara and I live in Berkeley California Ist das eine Frage Frau Müller"
-#print(result)
-
 if __name__ == "__main__":
 
     start_time = datetime.datetime.now()
@@ -18,7 +15,6 @@ if __name__ == "__main__":
 
     with open('output.txt', 'w') as ot:
 
-#        punct_model = RestorePuncts(model="outputs/")
         model = PunctuationModel()
 
         for line in test_sample:

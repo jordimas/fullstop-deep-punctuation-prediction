@@ -165,7 +165,7 @@ class ModelTrainer():
             fp16=True   
         )
 
-        print(f"ModelTrainer.run_training: atgs: {args}"
+        print(f"ModelTrainer.run_training: atgs: {args}")
     
         data_collator = DataCollatorForTokenClassification(self.tokenizer)
 

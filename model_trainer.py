@@ -32,7 +32,7 @@ class ModelTrainer():
             
         self.id_2_label = list(self.label_2_id.keys())
 
-        print(f"ModelTrainer.__init__: {opimizer_config}"
+        print(f"ModelTrainer.__init__: {opimizer_config}")
     
     def tokenize_and_align_data(self,data,stride=0):
         if self.model_checkpoint == "camembert/camembert-large":

@@ -4,8 +4,8 @@ import re
 import torch
 
 class PunctuationModel():
-    def __init__(self, model = "oliverguhr/fullstop-punctuation-multilang-large") -> None:
-        model = "model/"
+    def __init__(self, model = "oliverguhr/fullstop-punctuation-multilang-large") -> None:        
+        model = "model-2022-3-31/"
         if torch.cuda.is_available():
             self.pipe = pipeline("ner",model, grouped_entities=False, device=0)
         else:
@@ -13,7 +13,7 @@ class PunctuationModel():
 
     def preprocess(self,text):
         #remove markers except for markers in numbers 
-#        text = re.sub(r"(?<!\d)[,](?!\d)","",text) 
+        #text = re.sub(r"(?<!\d)[.,;:!?](?!\d)","",text) 
         #todo: match acronyms https://stackoverflow.com/questions/35076016/regex-to-match-acronyms
         text = text.split()
         return text
@@ -69,12 +69,18 @@ class PunctuationModel():
         result = ""
         for word, label, _ in prediction:
             result += word
-#            if label == "0":
-            if label in ",":
-#            if label in ".,?-:":
-                result += label+" "
-            else:
+            print(label)
+            if label == "LABEL_0":
                 result += " "
+            elif label == "LABEL_2":
+                result += ", "
+
+#            if label == "0":
+#                result += " "
+#            elif label == ",":
+#                result += ", "
+
+
         return result.strip()
 
 if __name__ == "__main__":    
@@ -84,7 +90,6 @@ if __name__ == "__main__":
     # restore add missing punctuation
     result = model.restore_punctuation(text)
     print(result)
-
 
     clean_text = model.preprocess(text)
     labled_words = model.predict(clean_text)

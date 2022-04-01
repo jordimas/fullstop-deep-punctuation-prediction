@@ -23,8 +23,8 @@ if __name__ == "__main__":
                 equal += 1
             else:
                 diff += 1
-                print(f"s: {source}")
-                print(f"t: {target}")
+                print(f"{source}")
+                print(f"{target}")
 
         pequal = equal * 100 / (diff+equal)
         print(f"Sentences: equal {equal}  ({pequal:.2f}%), diff {diff}")

@@ -73,6 +73,8 @@ class PunctuationModel():
                 result += " "
             elif label == "LABEL_2":
                 result += ", "
+            else:
+                result += " "
 
 #            if label == "0":
 #                result += " "

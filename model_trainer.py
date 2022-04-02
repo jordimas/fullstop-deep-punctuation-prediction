@@ -149,7 +149,7 @@ class ModelTrainer():
             per_device_train_batch_size=self.batch_size,
             per_device_eval_batch_size=self.batch_size,
             gradient_accumulation_steps=1,
-            num_train_epochs=self.opimizer_config["num_train_epochs"],
+#            num_train_epochs=self.opimizer_config["num_train_epochs"],
             adafactor=self.opimizer_config["adafactor"], 
             #weight_decay=0.005,
             #weight_decay=2.4793153505992856e-11,

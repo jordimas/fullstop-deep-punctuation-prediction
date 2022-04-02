@@ -162,6 +162,7 @@ class ModelTrainer():
             logging_steps=100,
             save_steps=10000,
             save_total_limit=10,
+            num_train_epochs=4,
             seed=16, 
             fp16=True   
         )

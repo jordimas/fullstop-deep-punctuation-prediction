@@ -23,6 +23,7 @@ def load_from_zip(data_zip: str, data_set: str, lang: str, subtask: int = 1):
         relevant_dir = re.sub(r'\\', '/', relevant_dir)
 
     all_gt_labels, all_predicted_labels = list(), list()  # aggregate all labels over all files
+    count_words = 0
     with ZipFile(data_zip, 'r') as zf:  # load ground truth
         fnames = zf.namelist()
         gt_tsv_files = [
@@ -47,6 +48,9 @@ def load_from_zip(data_zip: str, data_set: str, lang: str, subtask: int = 1):
                 if len(words) != len(labels):
                     raise Exception( "word / label missmatch in file " + gt_tsv_file)
                 data.append([words,labels])
+                count_words += len(words)
+
+        print(f"Corpus words: {count_words}")
         return data   
 
 def load(data_zip: str, data_set: str, lang: str, subtask: int = 1):

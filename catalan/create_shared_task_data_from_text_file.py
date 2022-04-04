@@ -48,7 +48,7 @@ def to_tsv(lines, filename: str):
             if '\"' in line:
                 continue
 
-            if cnt_lines % 1000000 == 0:
+            if cnt_lines % 10000 == 0:
                 print("Processed {lines} lines")
 
             for tok in tokenize_sentence_into_words(line):

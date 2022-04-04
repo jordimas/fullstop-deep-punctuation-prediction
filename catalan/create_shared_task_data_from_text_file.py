@@ -49,7 +49,7 @@ def to_tsv(lines, filename: str):
                 continue
 
             if cnt_lines % 10000 == 0:
-                print(f"Processed {lines} lines")
+                print(f"Processed {cnt_lines} lines")
 
             for tok in tokenize_sentence_into_words(line):
                 tok = tok.strip()

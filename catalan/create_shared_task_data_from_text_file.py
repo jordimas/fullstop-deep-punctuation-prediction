@@ -8,7 +8,22 @@ random.seed(RAND_SEED)
 RELEVANT_PUNCT = {'.', ',', '?', '-', ':', '!', ';'}
 PUNCT_MAP = {'!': '.', ';': '.'}
 
-WORD_SPLIT = '(\.|,|\?|-|:|!|;| )'
+
+'''
+    This method decided how you want to tokenize your sentence into words
+    This is language dependent
+'''
+
+import spacy
+nlp = spacy.load("ca_core_news_lg")
+def tokenize_sentence_into_words(sentence):
+
+    doc = nlp(sentence)  # phrase to tokenize
+    words = []
+    for word in doc:
+        words.append(word.text)
+
+    return words
 
 def to_tsv(lines, filename: str):
     label_counts = Counter()
@@ -20,7 +35,7 @@ def to_tsv(lines, filename: str):
             if '\"' in line:
                 continue
 
-            for tok in re.split(WORD_SPLIT, line):
+            for tok in tokenize_sentence_into_words(line):
                 tok = tok.strip()
                 if len(tok) == 0:
                     continue
@@ -42,7 +57,6 @@ def to_tsv(lines, filename: str):
 
                 s = f'{prev}\t{t1_label}\t{t2_label}'
                 output_fh.write(s+ "\n")
-                #print(s)
 
                 if tok in RELEVANT_PUNCT:  # subtask 2 label
                     prev = None
@@ -67,6 +81,9 @@ def dev_test_train(text_file: str, outpath: str):
         to_tsv(dev_lines, "sepp_nlg_2021_data/ca/dev/dev.tsv")
         to_tsv(test_lines, "sepp_nlg_2021_data/ca/test/test.tsv")
 
+    print(f"Wrote zip into {outpath} using {text_file} as input corpus")
+
 if __name__ == '__main__':
-    dev_test_train('catalan.txt',  outpath='data/sepp_nlg_2021_data/')
+
+    dev_test_train('europarl.en-ca.ca',  outpath='data/sepp_nlg_2021_data/')
 

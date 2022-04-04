@@ -170,7 +170,8 @@ class ModelTrainer():
         data_collator = DataCollatorForTokenClassification(self.tokenizer)
 
         def model_init():
-            return AutoModelForTokenClassification.from_pretrained(self.model_checkpoint, num_labels=len(self.label_2_id))
+            return AutoModelForTokenClassification.from_pretrained(self.model_checkpoint, num_labels=len(self.label_2_id),
+                label2id=self.label_2_id, id2label=self.id_2_label)
 
         trainer = Trainer(
             model_init=model_init,

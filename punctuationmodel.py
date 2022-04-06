@@ -13,7 +13,8 @@ class PunctuationModel():
 
     def preprocess(self,text):
         #remove markers except for markers in numbers 
-        #text = re.sub(r"(?<!\d)[.,;:!?](?!\d)","",text) 
+        #text = re.sub(r"(?<!\d)[.,;:!?](?!\d)","",text)
+        text = re.sub(r"(?<!\d)[.,](?!\d)","",text)  
         #todo: match acronyms https://stackoverflow.com/questions/35076016/regex-to-match-acronyms
         text = text.split()
         return text
@@ -70,7 +71,9 @@ class PunctuationModel():
         for word, label, _ in prediction:
             result += word
             #if label == "LABEL_0":
-            if label == "LABEL_2":
+            if label == "LABEL_1":
+                result += "."
+            label == "LABEL_2":
                 result += ","
             elif label == "LABEL_3":
                 result += "?"

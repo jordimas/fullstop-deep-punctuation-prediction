@@ -4,19 +4,21 @@ import re
 import torch
 
 class PunctuationModel():
-    def __init__(self, model = "oliverguhr/fullstop-punctuation-multilang-large") -> None:        
+    def __init__(self, model = "oliverguhr/fullstop-punctuation-multilang-large", punctuation = ".,;:!?") -> None:
         model = "model-2022-4-02-ca-id-12"
         if torch.cuda.is_available():
             self.pipe = pipeline("ner",model, grouped_entities=False, device=0)
         else:
             self.pipe = pipeline("ner",model, grouped_entities=False)       
 
-        self.model = model 
+        self.model = model
+        self.punctuation = punctuation
 
     def preprocess(self,text):
-        #remove markers except for markers in numbers 
-        #text = re.sub(r"(?<!\d)[.,;:!?](?!\d)","",text)
-        text = re.sub(r"(?<!\d)[.,](?!\d)","",text)  
+        #remove markers except for markers in numbers
+        reg = f"(?<!\d)[{self.punctuation}](?!\d)"
+        text = re.sub(reg,"",text)
+#        text = re.sub(r"(?<!\d)[.,;:!?](?!\d)","",text) 
         #todo: match acronyms https://stackoverflow.com/questions/35076016/regex-to-match-acronyms
         text = text.split()
         return text
@@ -73,15 +75,15 @@ class PunctuationModel():
         for word, label, _ in prediction:
             result += word
             #if label == "LABEL_0":
-            if label == "LABEL_1":
+            if label == "LABEL_1" and '.' in self.punctuation:
                 result += "."
-            elif label == "LABEL_2":
+            elif label == "LABEL_2" and ',' in self.punctuation:
                 result += ","
-            elif label == "LABEL_3":
+            elif label == "LABEL_3" and '?' in self.punctuation:
                 result += "?"
-            elif label == "LABEL_4":
+            elif label == "LABEL_4" and '-' in self.punctuation:
                 result += "-"
-            elif label == "LABEL_5":
+            elif label == "LABEL_5" and ':' in self.punctuation:
                 result += ":"
 
             result += " "

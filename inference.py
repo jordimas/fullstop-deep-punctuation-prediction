@@ -9,8 +9,9 @@ transformers.logging.set_verbosity_error()
 
 model = PunctuationModel()
 
-def do_inference(ref_lines, lines, output, file_type):
+def do_inference(ref_lines, lines, output, file_type, punctuation):
 
+    model.punctuation = punctuation
     with open(output, 'w') as ot:
 
         cnt = 0
@@ -57,7 +58,7 @@ if __name__ == "__main__":
             fp.write(line)
             processed_lines.append(line)
 
-        do_inference(lines, processed_lines, "output-no-commas.txt", "no commas")
+        do_inference(lines, processed_lines, "output-no-commas.txt", "no commas", ",")
 
     with open('flores101_cat_no-comas-no-dots.txt', 'w') as fp:
         processed_lines = []
@@ -67,7 +68,7 @@ if __name__ == "__main__":
             fp.write(line)
             processed_lines.append(line)
 
-        do_inference(lines, processed_lines, "output-flores101_cat_no-comas-no-dots.txt", "no commas and no dots")
+        do_inference(lines, processed_lines, "output-flores101_cat_no-comas-no-dots.txt", "no commas and no dots", ",.")
 
     s = 'Time used: {0}'.format(datetime.datetime.now() - start_time)
     print(f"Model used: {model.model}")

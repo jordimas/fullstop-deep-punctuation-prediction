@@ -5,7 +5,7 @@ from punctuationmodel import PunctuationModel
 
 # Remove warning 'Some weights of RobertaModel were not initialized from the model checkpoint'
 import transformers
-#transformers.logging.set_verbosity_error()
+transformers.logging.set_verbosity_error()
 
 model = PunctuationModel()
 

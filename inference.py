@@ -3,12 +3,16 @@
 import datetime
 from punctuationmodel import PunctuationModel
 
+# Remove warning 'Some weights of RobertaModel were not initialized from the model checkpoint'
+import transformers
+#transformers.logging.set_verbosity_error()
+
+model = PunctuationModel()
 
 def do_inference(ref_lines, lines, output, file_type):
 
     with open(output, 'w') as ot:
 
-        model = PunctuationModel()
 
         cnt = 0
         equal = 0
@@ -27,8 +31,8 @@ def do_inference(ref_lines, lines, output, file_type):
             ot.write(line + "\n")
             cnt += 1
 
-            if cnt % 100 == 0:
-                print(cnt)
+#            if cnt % 100 == 0:
+#                print(cnt)
 
 #            print(f"{line == ref_line} - '{ref_line}' - '{line}'")
             if line == ref_line:
@@ -37,7 +41,7 @@ def do_inference(ref_lines, lines, output, file_type):
                 diff += 1
 
     pequal = equal * 100 / (diff+equal)
-    print(f"Sentences: for {file_type} equal {equal}  ({pequal:.2f}%), diff {diff}")
+    print(f">> Sentences: for {file_type} equal {equal}  ({pequal:.2f}%), diff {diff}")
 
 
 if __name__ == "__main__":
@@ -66,5 +70,6 @@ if __name__ == "__main__":
 
         do_inference(lines, processed_lines, "output-flores101_cat_no-comas-no-dots.txt", "no commas and no dots")
 
-    s = 'Time used: {0}'.format(datetime.datetime.now() - start_time)
+    s = '>> Time used: {0}'.format(datetime.datetime.now() - start_time)
+    print(f">> Model used {model.model}")
     print(s)

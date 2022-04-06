@@ -9,7 +9,9 @@ class PunctuationModel():
         if torch.cuda.is_available():
             self.pipe = pipeline("ner",model, grouped_entities=False, device=0)
         else:
-            self.pipe = pipeline("ner",model, grouped_entities=False)        
+            self.pipe = pipeline("ner",model, grouped_entities=False)       
+
+        self.model = model 
 
     def preprocess(self,text):
         #remove markers except for markers in numbers 
@@ -73,7 +75,7 @@ class PunctuationModel():
             #if label == "LABEL_0":
             if label == "LABEL_1":
                 result += "."
-            label == "LABEL_2":
+            elif label == "LABEL_2":
                 result += ","
             elif label == "LABEL_3":
                 result += "?"

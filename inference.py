@@ -13,7 +13,6 @@ def do_inference(ref_lines, lines, output, file_type):
 
     with open(output, 'w') as ot:
 
-
         cnt = 0
         equal = 0
         diff = 0

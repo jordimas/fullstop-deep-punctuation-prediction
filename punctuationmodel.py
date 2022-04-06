@@ -69,12 +69,17 @@ class PunctuationModel():
         result = ""
         for word, label, _ in prediction:
             result += word
-            if label == "LABEL_0":
-                result += " "
-            elif label == "LABEL_2":
-                result += ", "
-            else:
-                result += " "
+            #if label == "LABEL_0":
+            if label == "LABEL_2":
+                result += ","
+            elif label == "LABEL_3":
+                result += "?"
+            elif label == "LABEL_4":
+                result += "-"
+            elif label == "LABEL_5":
+                result += ":"
+
+            result += " "
 
 #            if label == "0":
 #                result += " "

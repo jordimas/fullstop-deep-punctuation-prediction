@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import datetime
+import sys
 from punctuationmodel import PunctuationModel
 
 # Remove warning 'Some weights of RobertaModel were not initialized from the model checkpoint'
@@ -46,21 +47,28 @@ def do_inference(ref_lines, lines, output, file_type, punctuation):
 
 if __name__ == "__main__":
 
+   
+    if len(sys.argv) > 1:
+        input_file = sys.argv[1]
+    else:
+       input_file =  'flores101_cat_small.txt'
+
     start_time = datetime.datetime.now()
 
-    with open('flores101_cat_small.txt', 'r') as fp:
+    base_filename = input_file.replace(".txt", "")
+    with open(input_file, 'r') as fp:
         lines = fp.readlines()
     
-    with open('flores101_cat_no-comas.txt', 'w') as fp:
+    with open(f'{base_filename}_no-comas.txt', 'w') as fp:
         processed_lines = []
         for line in lines:
             line = line.replace(",", "")
             fp.write(line)
             processed_lines.append(line)
 
-        do_inference(lines, processed_lines, "output-no-commas.txt", "no commas", ",")
+        do_inference(lines, processed_lines, f"output_{base_filename}-no-commas.txt", "no commas", ",")
 
-    with open('flores101_cat_no-comas-no-dots.txt', 'w') as fp:
+    with open(f'{base_filename}_no-comas-no-dots.txt', 'w') as fp:
         processed_lines = []
         for line in lines:
             line = line.replace(",", "")
@@ -68,8 +76,8 @@ if __name__ == "__main__":
             fp.write(line)
             processed_lines.append(line)
 
-        do_inference(lines, processed_lines, "output-flores101_cat_no-comas-no-dots.txt", "no commas and no dots", ",.")
+        do_inference(lines, processed_lines, f"output_{base_filename}_no-comas-no-dots.txt", "no commas and no dots", ",.")
 
     s = 'Time used: {0}'.format(datetime.datetime.now() - start_time)
-    print(f"Model used: {model.model}")
+    print(f"Model used: {model.model}, input file {input_file}")
     print(s)

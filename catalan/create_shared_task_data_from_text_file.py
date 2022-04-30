@@ -7,8 +7,10 @@ import pathlib
 
 RAND_SEED = 42
 random.seed(RAND_SEED)
-RELEVANT_PUNCT = {'.', ',', '?', '-', ':', '!', ';'}
-PUNCT_MAP = {'!': '.', ';': '.'}
+#RELEVANT_PUNCT = {'.', ',', '?', '-', ':', '!', ';'}
+RELEVANT_PUNCT = {"hi", "ho", "-hi", "-ho", "li", "-li"}
+#PUNCT_MAP = {'!': '.', ';': '.'}
+#   self.label_2_id = {"0":0, "hi":1, "ho":2, "-hi":3, "-ho":4, "li":5, "-li":5} 
 
 
 '''
@@ -43,7 +45,7 @@ def to_tsv(lines, filename: str):
         cnt_lines = 0
         for line in lines:
             cnt_lines += 1
-                
+
             line = line.lower()
             if '\"' in line:
                 continue
